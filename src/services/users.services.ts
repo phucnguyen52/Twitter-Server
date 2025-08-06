@@ -13,7 +13,7 @@ import Follower from '~/models/schemas/Follower.schema'
 import { ErrorWithStatus } from '~/models/Errors'
 import axios from 'axios'
 import HTTP_STATUS from '~/constants/httpStatus'
-config()
+config({ quiet: true })
 class UsersServices {
   private signAccessToken({ user_id, verify }: { user_id: string; verify: UserVerifyStatus }) {
     return signToken({

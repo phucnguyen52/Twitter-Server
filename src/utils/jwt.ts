@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken'
 import { TokenPayload } from '~/models/requests/User.requests'
-config()
+config({ quiet: true })
 export const signToken = ({
   payload,
   privateKey = process.env.JWT_SECRET as string,

@@ -59,5 +59,6 @@ export const USERS_MESSAGES = {
   USERNAME_EXISTED: 'Tên người dùng đã tồn tại. Vui lòng nhập lại',
   OLD_PASSWORD_NOT_MATCH: 'Mật khẩu cũ không đúng',
   CHANGE_PASSWORD_SUCCESS: 'Cập nhật mật khẩu thành công',
-  GMAIL_NOT_VERIFIED: 'Tài khoản gmail chưa được xác thực'
+  GMAIL_NOT_VERIFIED: 'Tài khoản gmail chưa được xác thực',
+  UPLOAD_SUCCESS: 'Tải ảnh/video thành công'
 } as const

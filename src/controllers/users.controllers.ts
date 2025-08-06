@@ -1,4 +1,3 @@
-import { forgotPasswordValidator } from './../middlewares/users.middlewares'
 import { NextFunction, Request, Response } from 'express'
 import usersServices from '~/services/users.services'
 import { ParamsDictionary } from 'express-serve-static-core'
@@ -23,8 +22,7 @@ import { USERS_MESSAGES } from '~/constants/message'
 import databaseService from '~/services/database.services'
 import HTTP_STATUS from '~/constants/httpStatus'
 import { UserVerifyStatus } from '~/constants/enum'
-import { config } from 'dotenv'
-config()
+import { pick } from 'lodash'
 export const loginController = async (req: Request<ParamsDictionary, any, LoginReqBody>, res: Response) => {
   const user = req.user as User
   const user_id = user._id as ObjectId
