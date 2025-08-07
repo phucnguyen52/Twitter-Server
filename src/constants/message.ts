@@ -60,5 +60,6 @@ export const USERS_MESSAGES = {
   OLD_PASSWORD_NOT_MATCH: 'Mật khẩu cũ không đúng',
   CHANGE_PASSWORD_SUCCESS: 'Cập nhật mật khẩu thành công',
   GMAIL_NOT_VERIFIED: 'Tài khoản gmail chưa được xác thực',
-  UPLOAD_SUCCESS: 'Tải ảnh/video thành công'
+  UPLOAD_SUCCESS: 'Tải ảnh/video thành công',
+  REFRESH_TOKEN_SUCCESS: 'Refresh_token thành công'
 } as const
