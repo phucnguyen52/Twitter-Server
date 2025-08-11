@@ -6,6 +6,8 @@ import Follower from '~/models/schemas/Follower.schema'
 import VideoStatus from '~/models/schemas/VideoStatus.schema'
 import Tweet from '~/models/schemas/Tweet.schema'
 import Hashtag from '~/models/schemas/Hashtag.schema'
+import Bookmark from '~/models/schemas/Bookmark.schema'
+import Like from '~/models/schemas/Like.schema'
 config({ quiet: true })
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@twitter.ef4n8xj.mongodb.net/?retryWrites=true&w=majority&appName=Twitter`
 
@@ -68,6 +70,12 @@ class DatabaseService {
   }
   get hashtags(): Collection<Hashtag> {
     return this.db.collection(process.env.DB_HASHTAGS_COLLECTION as string)
+  }
+  get bookmarks(): Collection<Bookmark> {
+    return this.db.collection(process.env.DB_BOOKMARKS_COLLECTION as string)
+  }
+  get likes(): Collection<Like> {
+    return this.db.collection(process.env.DB_LIKES_COLLECTION as string)
   }
 }
 const databaseService = new DatabaseService()

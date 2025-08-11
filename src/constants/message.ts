@@ -66,8 +66,8 @@ export const USERS_MESSAGES = {
 } as const
 
 export const TWEETS_MESSAGES = {
-  INVALID_TYPE: 'Type không tồn tại / không đúng',
-  INVALID_AUDIENCE: 'Audience không tồn tại / không đúng',
+  INVALID_TYPE: 'Type không hợp lệ',
+  INVALID_AUDIENCE: 'Audience không hợp lệ',
   PARENT_ID_MUST_BE_A_VALID_TWEET_ID: 'Id tweets phải là id của tweet cha',
   PARENT_ID_MUST_BE_NULL: 'Id tweets bắt buộc là null',
   CONTENT_MUST_BE_A_NON_EMPTY_STRING: 'Nội dung không được rỗng',
@@ -75,4 +75,11 @@ export const TWEETS_MESSAGES = {
   HASHTAGS_MUST_BE_AN_ARRAY_OF_STRING: 'Mỗi phần tử trong mảng là string',
   MENTIONS_MUST_BE_AN_ARRAY_OF_USER_ID: 'Mỗi phần tử trong mảng là user_id',
   MEDIAS_MUST_BE_AN_ARRAY_OF_MEDIA_OBJECT: 'Medias phải là mảng bao gồm url và kiểu của media'
+} as const
+
+export const COMMENTS_MESSAGES = {
+  BOOKMARK_SUCCESS: 'Bookmark tweet thành công',
+  UNBOOKMARK_SUCCESS: 'UnBookmark tweet thành công',
+  LIKE_SUCCESS: 'Like tweet thành công',
+  UNLIKE_SUCCESS: 'UnLike tweet thành công'
 } as const
