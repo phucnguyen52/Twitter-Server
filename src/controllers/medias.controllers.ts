@@ -11,9 +11,20 @@ export const uploadImageController = async (req: Request, res: Response, next: N
   return res.json({ message: USERS_MESSAGES.UPLOAD_SUCCESS, result: url })
 }
 
-export const uploadVideoController = async (req: Request, res: Response, next: NextFunction) => {
-  const url = await mediasServices.uploadVideo(req)
+// export const uploadVideoController = async (req: Request, res: Response, next: NextFunction) => {
+//   const url = await mediasServices.uploadVideo(req)
+//   return res.json({ message: USERS_MESSAGES.UPLOAD_SUCCESS, result: url })
+// }
+
+export const uploadVideoHLSController = async (req: Request, res: Response, next: NextFunction) => {
+  const url = await mediasServices.uploadVideoHLS(req)
   return res.json({ message: USERS_MESSAGES.UPLOAD_SUCCESS, result: url })
+}
+
+export const videoHLSStatusController = async (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params
+  const data = await mediasServices.getVideoHLSStatus(id as string)
+  return res.json({ message: USERS_MESSAGES.GET_VIDEO_STATUS_SUCCESS, result: data })
 }
 
 export const serveImageController = (req: Request, res: Response, next: NextFunction) => {
@@ -25,12 +36,28 @@ export const serveImageController = (req: Request, res: Response, next: NextFunc
   })
 }
 
+export const serveM3u8Controller = (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params
+  // const realId = id.split('.')[0]
+  return res.sendFile(path.resolve(UPLOAD_VIDEO_DIR, id, 'master.m3u8'), (err) => {
+    if (err) {
+      res.status((err as any).status).send('Not found')
+    }
+  })
+}
+export const serveSegmentController = (req: Request, res: Response, next: NextFunction) => {
+  const { id, v, segment } = req.params
+  console.log(id, v, segment)
+  return res.sendFile(path.resolve(UPLOAD_VIDEO_DIR, id, v, segment), (err) => {
+    if (err) {
+      res.status((err as any).status).send('Not found')
+    }
+  })
+}
+
 export const serveVideoStreamController = (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.headers)
   const range = req.headers.range
-  console.log(range)
   if (!range) {
-    console.log(2)
     return res.status(HTTP_STATUS.BAD_REQUEST).send('Yêu cầu gửi lên Range trong Header')
   }
   const { name } = req.params

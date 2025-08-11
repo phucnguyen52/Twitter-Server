@@ -17,6 +17,7 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.31.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/formidable": "^3.4.5",
     "@types/jsonwebtoken": "^9.0.10",
@@ -39,6 +40,7 @@
     "@types/lodash": "^4.17.20",
     "@types/minimist": "^1.2.5",
     "axios": "^1.11.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
@@ -48,6 +50,9 @@
     "mime": "^4.0.7",
     "minimist": "^1.2.8",
     "mongodb": "^6.18.0",
-    "sharp": "^0.34.3"
+    "nanoid": "^5.1.5",
+    "sharp": "^0.34.3",
+    "slash": "^5.1.0",
+    "zx": "^8.8.0"
   }
 }

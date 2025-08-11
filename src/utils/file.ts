@@ -2,6 +2,8 @@ import { Request } from 'express'
 import { File } from 'formidable'
 import fs from 'fs'
 import { UPLOAD_IMAGE_DIR, UPLOAD_IMAGE_TEMP_DIR, UPLOAD_VIDEO_DIR, UPLOAD_VIDEO_TEMP_DIR } from '~/constants/dir'
+import { nanoid } from 'nanoid'
+import path from 'path'
 //Tạo thư mục uploads nếu chưa tồn tại.
 export const initFolder = () => {
   ;[UPLOAD_IMAGE_TEMP_DIR, UPLOAD_VIDEO_TEMP_DIR].forEach((dir) => {
@@ -45,8 +47,12 @@ export const handleUploadImage = async (req: Request) => {
 
 export const handleUploadVideo = async (req: Request) => {
   const formidable = (await import('formidable')).default
+  const nanoId = (await import('nanoid')).nanoid
+  const idName = nanoId()
+  const folderPath = path.resolve(UPLOAD_VIDEO_DIR, idName) // tạo đường dẫn
+  fs.mkdirSync(folderPath) //tạo thư mục theo đường dẫn trên
   const form = formidable({
-    uploadDir: UPLOAD_VIDEO_DIR,
+    uploadDir: folderPath, //upload vào đường dẫn đó
     maxFiles: 1,
     maxFileSize: 50 * 1024 * 1024, // 50MB
     filter: function ({ name, originalFilename, mimetype }) {
@@ -55,6 +61,9 @@ export const handleUploadVideo = async (req: Request) => {
         form.emit('error' as any, new Error('File không đúng định dạng') as any)
       }
       return valid
+    },
+    filename: function () {
+      return idName
     }
   })
   return new Promise<File[]>((resolve, reject) => {
@@ -72,6 +81,7 @@ export const handleUploadVideo = async (req: Request) => {
         const ext = getExtension(video.originalFilename as string)
         fs.renameSync(video.filepath, video.filepath + '.' + ext)
         video.newFilename = video.newFilename + '.' + ext
+        video.filepath = video.filepath + '.' + ext
       })
       resolve(files.video as File[])
     })
@@ -88,3 +98,39 @@ export const getExtension = (fullname: string) => {
   const namearr = fullname.split('.')
   return namearr[namearr.length - 1]
 }
+
+// export const handleUploadVideo = async (req: Request) => {
+//   const formidable = (await import('formidable')).default
+//   const form = formidable({
+//     uploadDir: UPLOAD_VIDEO_DIR,
+//     maxFiles: 1,
+//     maxFileSize: 50 * 1024 * 1024, // 50MB
+//     filter: function ({ name, originalFilename, mimetype }) {
+//       const valid = name === 'video' && Boolean(mimetype?.includes('mp4') || mimetype?.includes('quicktime'))
+//       if (!valid) {
+//         form.emit('error' as any, new Error('File không đúng định dạng') as any)
+//       }
+//       return valid
+//     }
+//   })
+//   return new Promise<File[]>((resolve, reject) => {
+//     // chuyển nó thành promise để reject bắt lỗi tiện hơn chớ không nếu throw error trong if thì nó sẽ bị lỗi phần form này và crash web mình
+//     form.parse(req, (err, fields, files) => {
+//       if (err) {
+//         return reject(err)
+//       }
+//       // eslint-disable-next-line no-extra-boolean-cast
+//       if (!Boolean(files.video)) {
+//         return reject(new Error('Vui lòng chọn file'))
+//       }
+//       const videos = files.video as File[]
+//       videos.forEach((video) => {
+//         const ext = getExtension(video.originalFilename as string)
+//         fs.renameSync(video.filepath, video.filepath + '.' + ext)
+//         video.newFilename = video.newFilename + '.' + ext
+//         video.filepath = video.filepath + '.' + ext
+//       })
+//       resolve(files.video as File[])
+//     })
+//   })
+// }

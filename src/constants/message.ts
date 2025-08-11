@@ -61,5 +61,18 @@ export const USERS_MESSAGES = {
   CHANGE_PASSWORD_SUCCESS: 'Cập nhật mật khẩu thành công',
   GMAIL_NOT_VERIFIED: 'Tài khoản gmail chưa được xác thực',
   UPLOAD_SUCCESS: 'Tải ảnh/video thành công',
-  REFRESH_TOKEN_SUCCESS: 'Refresh_token thành công'
+  REFRESH_TOKEN_SUCCESS: 'Refresh_token thành công',
+  GET_VIDEO_STATUS_SUCCESS: 'lấy trạng thái video thành công'
+} as const
+
+export const TWEETS_MESSAGES = {
+  INVALID_TYPE: 'Type không tồn tại / không đúng',
+  INVALID_AUDIENCE: 'Audience không tồn tại / không đúng',
+  PARENT_ID_MUST_BE_A_VALID_TWEET_ID: 'Id tweets phải là id của tweet cha',
+  PARENT_ID_MUST_BE_NULL: 'Id tweets bắt buộc là null',
+  CONTENT_MUST_BE_A_NON_EMPTY_STRING: 'Nội dung không được rỗng',
+  CONTENT_MUST_BE_EMPTY_STRING: 'Nội dung bắt buộc phải rỗng',
+  HASHTAGS_MUST_BE_AN_ARRAY_OF_STRING: 'Mỗi phần tử trong mảng là string',
+  MENTIONS_MUST_BE_AN_ARRAY_OF_USER_ID: 'Mỗi phần tử trong mảng là user_id',
+  MEDIAS_MUST_BE_AN_ARRAY_OF_MEDIA_OBJECT: 'Medias phải là mảng bao gồm url và kiểu của media'
 } as const

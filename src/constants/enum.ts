@@ -12,5 +12,25 @@ export enum TokenType {
 }
 export enum MediaType {
   Image,
-  Video
+  Video,
+  HLS
+}
+
+export enum EncodingStatus {
+  Pending, // đang chờ ở hàng đợi(chưa được encode)
+  Procesing, // Đang encode
+  Success, // Encode thành công
+  Failed // Encode thất bại
+}
+
+export enum TweetType {
+  Tweet,
+  Retweet,
+  Comment,
+  QuoteTweet
+}
+
+export enum TweetAudience {
+  Everyone,
+  TwitterCircle
 }

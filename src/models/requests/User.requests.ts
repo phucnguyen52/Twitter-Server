@@ -1,7 +1,7 @@
 import { ParamsDictionary } from 'express-serve-static-core'
 import { JwtPayload } from 'jsonwebtoken'
 import { TokenType, UserVerifyStatus } from '~/constants/enum'
-
+// File này để định nghĩa body gửi lên
 //file để định nghĩa những interface req.body gửi lên
 
 export interface LoginReqBody {
@@ -28,6 +28,8 @@ export interface TokenPayload extends JwtPayload {
   user_id: string
   token_type: TokenType
   verify: UserVerifyStatus
+  exp: number
+  iat: number
 }
 
 export interface VerifyEmailReqBody {
