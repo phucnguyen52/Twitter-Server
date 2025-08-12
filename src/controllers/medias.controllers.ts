@@ -47,7 +47,6 @@ export const serveM3u8Controller = (req: Request, res: Response, next: NextFunct
 }
 export const serveSegmentController = (req: Request, res: Response, next: NextFunction) => {
   const { id, v, segment } = req.params
-  console.log(id, v, segment)
   return res.sendFile(path.resolve(UPLOAD_VIDEO_DIR, id, v, segment), (err) => {
     if (err) {
       res.status((err as any).status).send('Not found')

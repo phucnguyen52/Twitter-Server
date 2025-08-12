@@ -116,7 +116,6 @@ class UsersServices {
       verify: UserVerifyStatus.Unverified
     })
     const { iat, exp } = await this.decodeRefreshToken(refresh_token)
-    console.log('#333', exp)
     await databaseService.refreshTokens.insertOne(
       new RefreshToken({ user_id: new ObjectId(user_id), token: refresh_token, iat, exp })
     )

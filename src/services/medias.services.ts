@@ -24,10 +24,8 @@ class Queue {
   }
   async enqueue(item: string) {
     this.items.push(item)
-    console.log('item', item)
     // item = /home/duy/Downloads/12312312/1231231221.mp4
     const idName = getNameFromFullname(item.split('\\').pop() as string)
-    console.log('@', idName)
     await databaseService.videoStatus.insertOne(
       new VideoStatus({
         name: idName,
@@ -145,7 +143,6 @@ class MediasServices {
     return result
   }
   async getVideoHLSStatus(id: string) {
-    console.log(id)
     const data = await databaseService.videoStatus.findOne({ name: id })
     return data
   }

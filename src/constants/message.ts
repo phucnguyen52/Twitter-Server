@@ -74,7 +74,10 @@ export const TWEETS_MESSAGES = {
   CONTENT_MUST_BE_EMPTY_STRING: 'Nội dung bắt buộc phải rỗng',
   HASHTAGS_MUST_BE_AN_ARRAY_OF_STRING: 'Mỗi phần tử trong mảng là string',
   MENTIONS_MUST_BE_AN_ARRAY_OF_USER_ID: 'Mỗi phần tử trong mảng là user_id',
-  MEDIAS_MUST_BE_AN_ARRAY_OF_MEDIA_OBJECT: 'Medias phải là mảng bao gồm url và kiểu của media'
+  MEDIAS_MUST_BE_AN_ARRAY_OF_MEDIA_OBJECT: 'Medias phải là mảng bao gồm url và kiểu của media',
+  INVALID_TWEET_ID: 'TweetId không hợp lệ',
+  TWEET_NOT_FOUND: 'Không tìm thấy Tweet',
+  TWEET_IS_NOT_PUBLIC: 'Tweet không công khai'
 } as const
 
 export const COMMENTS_MESSAGES = {
