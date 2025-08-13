@@ -11,7 +11,7 @@ import cors from 'cors'
 import tweetsRouter from './routes/tweets.routes'
 import bookmarksRouter from './routes/bookmarks.routes'
 import likesRouter from './routes/likes.routes'
-
+// import '~/utils/fake'
 config({ quiet: true })
 databaseService.connect().then(() => {
   databaseService.indexUsers()
