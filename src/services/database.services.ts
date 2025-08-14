@@ -53,6 +53,17 @@ class DatabaseService {
       this.followers.createIndex({ user_id: 1, follower_user_id: 1 }) // optional, nếu thực sự cần
     }
   }
+  //khắc phục lỗi search sop word
+  async indexTweets() {
+    const exists = await this.tweets.indexExists(['content_text'])
+    if (!exists) {
+      this.tweets.createIndex(
+        { content: 'text' },
+        { default_language: 'none' } // ko dùng phân tích ngôn ngữ mặc định của MongoDB
+      )
+    }
+  }
+
   get users(): Collection<User> {
     return this.db.collection(process.env.DB_USER_COLLECTION as string)
   }

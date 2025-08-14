@@ -86,3 +86,9 @@ export const COMMENTS_MESSAGES = {
   LIKE_SUCCESS: 'Like tweet thành công',
   UNLIKE_SUCCESS: 'UnLike tweet thành công'
 } as const
+
+export const SEARCH_MESSAGES = {
+  CONTENT_MUSE_BE_STRING: 'Nội dung phải là chuỗi',
+  MEDIA_ERROR: 'Media phải là image hoặc video',
+  PEOPLE_FOLLOW_SUCCESS: 'Công khai thì là 0 còn nếu là những người mình follow thì là 1'
+} as const
