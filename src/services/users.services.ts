@@ -13,6 +13,7 @@ import Follower from '~/models/schemas/Follower.schema'
 import { ErrorWithStatus } from '~/models/Errors'
 import axios from 'axios'
 import HTTP_STATUS from '~/constants/httpStatus'
+import { sendForgotPasswordEmail, sendVerifyRegisterEmail } from '~/utils/email'
 config({ quiet: true })
 class UsersServices {
   private signAccessToken({ user_id, verify }: { user_id: string; verify: UserVerifyStatus }) {
@@ -119,6 +120,7 @@ class UsersServices {
     await databaseService.refreshTokens.insertOne(
       new RefreshToken({ user_id: new ObjectId(user_id), token: refresh_token, iat, exp })
     )
+    await sendVerifyRegisterEmail(payload.email, email_verify_token)
     return { access_token, refresh_token, email_verify_token }
   }
   async refreshToken({
@@ -282,11 +284,12 @@ class UsersServices {
       refresh_token
     }
   }
-  async resendVerifyEmail(user_id: string) {
+  async resendVerifyEmail(user_id: string, email: string) {
     const email_verify_token = await this.signEmailVerifyToken({
       user_id: user_id.toString(),
       verify: UserVerifyStatus.Unverified
     })
+    await sendVerifyRegisterEmail(email, email_verify_token)
     await databaseService.users.updateOne({ _id: new ObjectId(user_id) }, [
       {
         $set: {
@@ -300,8 +303,9 @@ class UsersServices {
       token: email_verify_token
     }
   }
-  async forgotPassword({ user_id, verify }: { user_id: string; verify: UserVerifyStatus }) {
+  async forgotPassword({ user_id, verify, email }: { user_id: string; verify: UserVerifyStatus; email: string }) {
     const forgot_password_token = await this.signForgotPasswordToken({ user_id, verify })
+
     // cập nhật forgot_pasword_token trong database
     await databaseService.users.updateOne({ _id: new ObjectId(user_id) }, [
       {
@@ -312,6 +316,7 @@ class UsersServices {
       }
     ])
     // gửi email kèm đường lnk đến email người dùng: httd://twitter.com/forgot-password?token=token
+    await sendForgotPasswordEmail(email, forgot_password_token)
     return {
       messsage: USERS_MESSAGES.CHECK_EMAIL_T0_RESET_PASSWORD
     }

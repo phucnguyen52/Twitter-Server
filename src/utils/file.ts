@@ -134,3 +134,18 @@ export const getExtension = (fullname: string) => {
 //     })
 //   })
 // }
+
+export const getFiles = (dir: string, files: string[] = []) => {
+  const fileList = fs.readdirSync(dir)
+  for (const file of fileList) {
+    const name = `${dir}\\${file}`
+    if (fs.statSync(name).isDirectory()) {
+      getFiles(name, files)
+    } else {
+      files.push(name)
+    }
+  }
+  return files
+}
+
+// console.log(getFiles(path.resolve(UPLOAD_VIDEO_DIR, '7Cq1zdWQSlKRrVy8e641Q')))

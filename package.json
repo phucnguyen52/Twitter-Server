@@ -37,6 +37,9 @@
     "typescript-eslint": "^8.38.0"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.864.0",
+    "@aws-sdk/client-ses": "^3.864.0",
+    "@aws-sdk/lib-storage": "^3.864.0",
     "@faker-js/faker": "^9.9.0",
     "@types/lodash": "^4.17.20",
     "@types/minimist": "^1.2.5",

@@ -67,7 +67,6 @@ export const refreshTokenController = async (
 ) => {
   const { refresh_token } = req.body
   const { user_id, verify, exp } = req.decoded_refresh_token as TokenPayload
-  console.log('111', exp)
   const result = await usersServices.refreshToken({ user_id, verify, refresh_token, exp })
   return res.json({
     message: USERS_MESSAGES.REFRESH_TOKEN_SUCCESS,
@@ -124,7 +123,7 @@ export const resendVerifyEmailController = async (req: Request, res: Response) =
       message: USERS_MESSAGES.EMAIL_ALREADY_VERIFIED_BEFORE
     })
   }
-  const result = await usersServices.resendVerifyEmail(user_id)
+  const result = await usersServices.resendVerifyEmail(user_id, user.email)
   return res.json(result)
 }
 
@@ -132,8 +131,12 @@ export const forgotPasswordController = async (
   req: Request<ParamsDictionary, any, ForgotPasswordReqBody>,
   res: Response
 ) => {
-  const { _id, verify } = req.user as User
-  const result = await usersServices.forgotPassword({ user_id: (_id as ObjectId).toString(), verify: verify })
+  const { _id, verify, email } = req.user as User
+  const result = await usersServices.forgotPassword({
+    user_id: (_id as ObjectId).toString(),
+    verify: verify,
+    email: email
+  })
   return res.json(result)
 }
 
