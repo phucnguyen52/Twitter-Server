@@ -39,7 +39,6 @@ export const serveImageController = (req: Request, res: Response, next: NextFunc
 
 export const serveM3u8Controller = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params
-  console.log(id)
   sendFileFromS3(res, `videos-hls/${id}/master.m3u8`)
   // const realId = id.split('.')[0]
   // return res.sendFile(path.resolve(UPLOAD_VIDEO_DIR, id, 'master.m3u8'), (err) => {
