@@ -10,6 +10,7 @@ import { ErrorWithStatus } from '~/models/Errors'
 import { TokenPayload } from '~/models/requests/User.requests'
 import databaseService from '~/services/database.services'
 import usersServices from '~/services/users.services'
+import { verifyAccessToken } from '~/utils/commons'
 import { hashPassword } from '~/utils/crypto'
 import { verifyToken } from '~/utils/jwt'
 import { validate } from '~/utils/validation'
@@ -211,30 +212,7 @@ export const accessTokenValidator = validate(
             //value: chính là giá trị Authorization lấy từ req.headers.authorization
             //{ req }: là object chứa request của Express. Bạn có thể chỉnh sửa req hoặc dùng thêm các thông tin liên quan.
             const access_token = value.split(' ')[1] //cắt từ chuỗi bearer ... để lấy access token thôi
-            if (!access_token) {
-              throw new ErrorWithStatus({
-                message: USERS_MESSAGES.ACCESS_TOKEN_IS_REQUIRED,
-                status: HTTP_STATUS.UNAUTHORIZED
-              })
-            }
-
-            try {
-              const decoded_authorization = await verifyToken({
-                token: access_token,
-                secretOrPublicKey: process.env.JWT_SECRET_ACCESS_TOKEN as string
-              }) //để xác thực JWT.
-              ;(req as Request).decoded_authorization = decoded_authorization //Gắn thông tin người dùng (đã decode từ JWT) vào req, Để các middleware khác hoặc controller có thể dùng tiếp:
-            } catch (error) {
-              if (error instanceof JsonWebTokenError) {
-                //Xử lý khi token không hợp lệ về mặt kỹ thuật:Sai chữ ký.Bị chỉnh sửa.Không decode được.Định dạng không đúng.Không phải JWT thật sự.
-                throw new ErrorWithStatus({
-                  message: USERS_MESSAGES.ACCESS_TOKEN_IS_INVALID,
-                  status: HTTP_STATUS.UNAUTHORIZED
-                })
-              }
-            }
-
-            return true
+            return await verifyAccessToken(access_token, req as Request)
           }
         }
       }
