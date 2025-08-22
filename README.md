@@ -2,7 +2,7 @@
 
 ## 📌 Giới thiệu
 Đây là **backend API** của dự án **Twitter Clone**, được xây dựng bằng **Node.js + Express.js**.  
-Hệ thống cung cấp các API cần thiết để phục vụ frontend (Next.js hoặc React), bao gồm quản lý người dùng, tweet, bình luận, like, follow, nhắn tin realtime bằng socket.io, **streaming video dạng HLS (.m3u8)** và nhiều tính năng khác.  
+Hệ thống cung cấp các API cần thiết để phục vụ frontend (Next.js), bao gồm quản lý người dùng, tweet, bình luận, like, follow, nhắn tin realtime bằng socket.io, **streaming video dạng HLS (.m3u8)** và nhiều tính năng khác.  
 
 
 ## 🚀 Tính năng chính
